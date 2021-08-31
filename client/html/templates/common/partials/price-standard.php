@@ -70,7 +70,11 @@ $notax = $this->translate( 'client', '+ %1$s%% VAT' );
 		</span>
 
 		<span class="value">
-			<?= $enc->html( sprintf( $format['value'], $this->number( $priceItem->getValue(), $priceItem->getPrecision() ), $currency ), $enc::TRUST ) ?>
+			<?php if( $priceItem->getValue() !== null ) : ?>
+				<?= $enc->html( sprintf( $format['value'], $this->number( $priceItem->getValue(), $priceItem->getPrecision() ), $currency ), $enc::TRUST ) ?>
+			<?php else : ?>
+				<?= $enc->html( $this->translate( 'client', 'on request' ) ) ?>
+			<?php endif ?>
 		</span>
 
 		<?php if( $priceItem->getValue() > 0 && $priceItem->getRebate() > 0 ) : ?>
@@ -88,9 +92,11 @@ $notax = $this->translate( 'client', '+ %1$s%% VAT' );
 			</span>
 		<?php endif ?>
 
-		<span class="taxrate">
-			<?= $enc->html( sprintf( ( $priceItem->getTaxFlag() ? $withtax : $notax ), $this->number( $priceItem->getTaxrate() ) ), $enc::TRUST ) ?>
-		</span>
+		<?php if( $priceItem->getTaxrate() > 0 ) : ?>
+			<span class="taxrate">
+				<?= $enc->html( sprintf( ( $priceItem->getTaxFlag() ? $withtax : $notax ), $this->number( $priceItem->getTaxrate() ) ), $enc::TRUST ) ?>
+			</span>
+		<?php endif ?>
 	</div>
 
 <?php endforeach ?>

@@ -88,6 +88,7 @@ class Standard
 		 *
 		 * Notification e-mail about payment status changes can be sent for these
 		 * status values:
+		 *
 		 * * 0: deleted
 		 * * 1: canceled
 		 * * 2: refused
@@ -240,7 +241,7 @@ class Standard
 			catch( \Exception $e )
 			{
 				$str = 'Error while trying to send payment e-mail for order ID "%1$s" and status "%2$s": %3$s';
-				$msg = sprintf( $str, $item->getId(), $item->getPaymentStatus(), $e->getMessage() );
+				$msg = sprintf( $str, $item->getId(), $item->getStatusPayment(), $e->getMessage() );
 				$context->getLogger()->log( $msg . PHP_EOL . $e->getTraceAsString() );
 			}
 		}

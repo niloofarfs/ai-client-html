@@ -89,6 +89,7 @@ class Standard
 		 *
 		 * Notification e-mail about delivery status changes can be sent for these
 		 * status values:
+		 *
 		 * * 0: deleted
 		 * * 1: pending
 		 * * 2: progress
@@ -246,7 +247,7 @@ class Standard
 			catch( \Exception $e )
 			{
 				$str = 'Error while trying to send delivery e-mail for order ID "%1$s" and status "%2$s": %3$s';
-				$msg = sprintf( $str, $item->getId(), $item->getDeliveryStatus(), $e->getMessage() );
+				$msg = sprintf( $str, $item->getId(), $item->getStatusDelivery(), $e->getMessage() );
 				$context->getLogger()->log( $msg . PHP_EOL . $e->getTraceAsString() );
 			}
 		}
